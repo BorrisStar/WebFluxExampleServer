@@ -6,13 +6,33 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("api/v1/webflux")
 @RequiredArgsConstructor
 public class WebFluxController {
+
+    @GetMapping("/flux")
+    public Flux<String> getFlux(
+            @RequestParam(defaultValue = "0") Long start,
+            @RequestParam(defaultValue = "3") Long count
+    ) {
+        return Flux.just(
+                        "\nHello Reactive!\n",
+                        "First element\n",
+                        "Second element\n",
+                        "Third element\n",
+                        "Forth element\n",
+                        "there's nothing more\n"
+                )
+                .skip(start)
+                .take(count)
+                .map(String::new);
+    }
 
     @GetMapping("/id")
     public Mono<String> getId() {
