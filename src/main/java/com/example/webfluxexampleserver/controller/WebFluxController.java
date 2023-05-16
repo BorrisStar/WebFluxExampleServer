@@ -34,7 +34,7 @@ public class WebFluxController {
                 .map(String::new);
     }
 
-    @GetMapping("/id")
+    @GetMapping("/best")
     public Mono<String> getId() {
         return Mono.just("143360");
     }
@@ -46,12 +46,12 @@ public class WebFluxController {
 
     @PostMapping(value = "/id", consumes = MediaType.TEXT_PLAIN_VALUE)
     public Mono<String> getName(@RequestBody String id) {
-        return getMono("143360", id, "Boris");
+        return getMono("143360", id, "Expert");
     }
 
     @PostMapping(value = "/name", consumes = MediaType.TEXT_PLAIN_VALUE)
     public Mono<String> getPosition(@RequestBody String name) {
-        return getMono("Boris", name, "Java Developer");
+        return getMono("Expert", name, "Java Developer");
     }
 
     @PostMapping(value = "/position", consumes = MediaType.TEXT_PLAIN_VALUE)
