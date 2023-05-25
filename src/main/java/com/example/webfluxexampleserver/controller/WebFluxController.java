@@ -35,14 +35,12 @@ public class WebFluxController {
     }
 
     @GetMapping("/best")
-    public Mono<String> getId() {
+    public Mono<String> getId() throws InterruptedException {
         return Mono.just("143360");
     }
 
     @GetMapping("/error")
-    public Mono<String> getErrorForTest() {
-        return Mono.error(new RuntimeException("Invalid request"));
-    }
+    public Mono<String> getErrorForTest() {return Mono.error(new RuntimeException("Invalid request"));}
 
     @PostMapping(value = "/id", consumes = MediaType.TEXT_PLAIN_VALUE)
     public Mono<String> getName(@RequestBody String id) {
@@ -51,6 +49,7 @@ public class WebFluxController {
 
     @PostMapping(value = "/name", consumes = MediaType.TEXT_PLAIN_VALUE)
     public Mono<String> getPosition(@RequestBody String name) {
+
         return getMono("Expert", name, "Java Developer");
     }
 
